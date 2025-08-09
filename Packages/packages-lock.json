@@ -281,6 +281,12 @@
       },
       "url": "https://packages.unity.com"
     },
+    "com.svermeulen.zenject": {
+      "version": "https://github.com/modesttree/Zenject.git#v9.2.0",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {}
+    },
     "com.unity.modules.accessibility": {
       "version": "1.0.0",
       "depth": 0,

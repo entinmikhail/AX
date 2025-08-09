@@ -1,5 +1,4 @@
-using System;
-using System.Collections.Generic;
+using Zenject;
 
 namespace Game.Infrastructure
 {
@@ -8,30 +7,21 @@ namespace Game.Infrastructure
     /// </summary>
     public class GameStateMachine
     {
-        private readonly Dictionary<Type, IState> _states;
+        private readonly DiContainer _container;
         private IState _activeState;
 
-        public GameStateMachine(SceneLoader sceneLoader)
+        public GameStateMachine(DiContainer container)
         {
-            _states = new Dictionary<Type, IState>
-            {
-                [typeof(BootstrapState)] = new BootstrapState(this),
-                [typeof(MetaState)] = new MetaState(this, sceneLoader),
-                [typeof(GameplayState)] = new GameplayState(this, sceneLoader)
-            };
+            _container = container;
         }
 
         public void Enter<TState>() where TState : class, IState
         {
             _activeState?.Exit();
-            var state = GetState<TState>();
+            var state = _container.Resolve<TState>();
             _activeState = state;
             state.Enter();
         }
-
-        private TState GetState<TState>() where TState : class, IState
-        {
-            return _states[typeof(TState)] as TState;
-        }
     }
 }
+
