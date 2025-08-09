@@ -1,4 +1,5 @@
 using UnityEngine;
+using Zenject;
 
 namespace Game.Infrastructure
 {
@@ -8,16 +9,18 @@ namespace Game.Infrastructure
     /// </summary>
     public class GameBootstrapper : MonoBehaviour
     {
-        public static GameStateMachine StateMachine { get; private set; }
+        private GameStateMachine _stateMachine;
+
+        [Inject]
+        public void Construct(GameStateMachine stateMachine)
+        {
+            _stateMachine = stateMachine;
+        }
 
         private void Awake()
         {
-            if (StateMachine == null)
-            {
-                StateMachine = new GameStateMachine(new SceneLoader());
-                DontDestroyOnLoad(this);
-                StateMachine.Enter<BootstrapState>();
-            }
+            DontDestroyOnLoad(this);
+            _stateMachine.Enter<BootstrapState>();
         }
     }
 }

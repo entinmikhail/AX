@@ -1,3 +1,5 @@
+using Zenject;
+
 namespace Game.Infrastructure
 {
     /// <summary>
@@ -6,12 +8,7 @@ namespace Game.Infrastructure
     /// </summary>
     public class BootstrapState : IState
     {
-        private readonly GameStateMachine _stateMachine;
-
-        public BootstrapState(GameStateMachine stateMachine)
-        {
-            _stateMachine = stateMachine;
-        }
+        [Inject] private GameStateMachine _stateMachine;
 
         public void Enter()
         {

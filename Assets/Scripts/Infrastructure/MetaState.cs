@@ -1,3 +1,5 @@
+using Zenject;
+
 namespace Game.Infrastructure
 {
     /// <summary>
@@ -6,14 +8,7 @@ namespace Game.Infrastructure
     /// </summary>
     public class MetaState : IState
     {
-        private readonly GameStateMachine _stateMachine;
-        private readonly SceneLoader _sceneLoader;
-
-        public MetaState(GameStateMachine stateMachine, SceneLoader sceneLoader)
-        {
-            _stateMachine = stateMachine;
-            _sceneLoader = sceneLoader;
-        }
+        [Inject] private SceneLoader _sceneLoader;
 
         public void Enter()
         {

@@ -1,5 +1,6 @@
 using Game.Infrastructure;
 using UnityEngine;
+using Zenject;
 
 namespace Game.Meta
 {
@@ -8,9 +9,11 @@ namespace Game.Meta
     /// </summary>
     public class MetaGame : MonoBehaviour
     {
+        [Inject] private GameStateMachine _stateMachine;
+
         public void StartGameplay()
         {
-            GameBootstrapper.StateMachine.Enter<GameplayState>();
+            _stateMachine.Enter<GameplayState>();
         }
     }
 }
